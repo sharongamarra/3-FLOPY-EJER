@@ -43,3 +43,10 @@ dis = flopy.mf6.ModflowGwfdis(
     top=0.0,
     botm=bot,
 )
+
+#Crear paquete de condiciones iniciales
+start = h1 * np.ones((Nlay, N, N))
+ic = flopy.mf6.ModflowGwfic(gwf, pname="ic", strt=start)
+
+#Crear paquete NPF Flujo de propiedad de nodo
+npf = flopy.mf6.ModflowGwfnpf(gwf, icelltype=1, k=k, save_flows=True)
