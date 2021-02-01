@@ -67,3 +67,24 @@ chd = flopy.mf6.ModflowGwfchd(
     stress_period_data=chd_rec,
     save_flows=True,
 )
+#Periodo de stress
+iper = 0
+ra = chd.stress_period_data.get_data(key=iper)
+ra
+
+# Create the output control (`OC`) Package
+headfile = "{}.hds".format(name)
+head_filerecord = [headfile]
+budgetfile = "{}.cbb".format(name)
+budget_filerecord = [budgetfile]
+saverecord = [("HEAD", "ALL"), ("BUDGET", "ALL")]
+printrecord = [("HEAD", "LAST")]
+oc = flopy.mf6.ModflowGwfoc(
+    gwf,
+    saverecord=saverecord,
+    head_filerecord=head_filerecord,
+    budget_filerecord=budget_filerecord,
+    printrecord=printrecord,
+)
+#Escribe los conjuntos de datos
+sim.write_simulation()
