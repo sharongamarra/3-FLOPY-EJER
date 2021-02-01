@@ -18,3 +18,8 @@ k = 1.0
 sim = flopy.mf6.MFSimulation(
     sim_name=name, exe_name=C:/12-DIPLOMADO/Programas/mf6.2.0/bin/mf6, version="mf6", sim_ws="."
 )
+
+#TDIS Paquete de discretización temporal
+tdis = flopy.mf6.ModflowTdis(
+    sim, pname="tdis", time_units="DAYS", nper=1, perioddata=[(1.0, 1, 1.0)]
+)
