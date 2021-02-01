@@ -16,7 +16,7 @@ k = 1.0
 
 #Creando simulación de flopy
 sim = flopy.mf6.MFSimulation(
-    sim_name=name, exe_name=C:/12-DIPLOMADO/Programas/mf6.2.0/bin/mf6, version="mf6", sim_ws="."
+    sim_name=name, exe_name="C:/12-DIPLOMADO/Programas/mf6.2.0/bin/mf6", version="mf6", sim_ws="workspace"
 )
 
 #TDIS Paquete de discretización temporal
@@ -95,6 +95,7 @@ if not success:
     raise Exception("MODFLOW 6 did not terminate normally.")
 
 #RESULTADOS-CAPA 1
+headfile= "workspace" +'/'+headfile
 hds = flopy.utils.binaryfile.HeadFile(headfile)
 h = hds.get_data(kstpkper=(0, 0))
 x = y = np.linspace(0, L, N)
