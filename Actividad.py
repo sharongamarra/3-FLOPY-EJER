@@ -88,3 +88,11 @@ oc = flopy.mf6.ModflowGwfoc(
 )
 #Escribe los conjuntos de datos
 sim.write_simulation()
+
+#Ejecuta la simulación
+success, buff = sim.run_simulation()
+if not success:
+    raise Exception("MODFLOW 6 did not terminate normally.")
+
+
+
