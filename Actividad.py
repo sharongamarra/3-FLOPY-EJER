@@ -25,3 +25,21 @@ tdis = flopy.mf6.ModflowTdis(
 )
 #IMS solucion del modelo interativo
 ims = flopy.mf6.ModflowIms(sim, pname="ims", complexity="SIMPLE")
+
+#Crear un modelo de flujo subterranea
+model_nam_file = "{}.nam".format(name)
+gwf = flopy.mf6.ModflowGwf(sim, modelname=name, model_nam_file=model_nam_file)
+
+#Definir discretización del modelo
+bot = np.linspace(-H / Nlay, -H, Nlay)
+delrow = delcol = L / (N - 1)
+dis = flopy.mf6.ModflowGwfdis(
+    gwf,
+    nlay=Nlay,
+    nrow=N,
+    ncol=N,
+    delr=delrow,
+    delc=delcol,
+    top=0.0,
+    botm=bot,
+)
