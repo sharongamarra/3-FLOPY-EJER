@@ -50,3 +50,20 @@ ic = flopy.mf6.ModflowGwfic(gwf, pname="ic", strt=start)
 
 #Crear paquete NPF Flujo de propiedad de nodo
 npf = flopy.mf6.ModflowGwfnpf(gwf, icelltype=1, k=k, save_flows=True)
+
+#Crear paquete de cabeza constante 
+chd_rec = []
+chd_rec.append(((0, int(N / 4), int(N / 4)), h2))
+for layer in range(0, Nlay):
+    for row_col in range(0, N):
+        chd_rec.append(((layer, row_col, 0), h1))
+        chd_rec.append(((layer, row_col, N - 1), h1))
+        if row_col != 0 and row_col != N - 1:
+            chd_rec.append(((layer, 0, row_col), h1))
+            chd_rec.append(((layer, N - 1, row_col), h1))
+chd = flopy.mf6.ModflowGwfchd(
+    gwf,
+    maxbound=len(chd_rec),
+    stress_period_data=chd_rec,
+    save_flows=True,
+)
