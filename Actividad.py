@@ -23,3 +23,5 @@ sim = flopy.mf6.MFSimulation(
 tdis = flopy.mf6.ModflowTdis(
     sim, pname="tdis", time_units="DAYS", nper=1, perioddata=[(1.0, 1, 1.0)]
 )
+#IMS solucion del modelo interativo
+ims = flopy.mf6.ModflowIms(sim, pname="ims", complexity="SIMPLE")
